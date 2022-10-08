@@ -24,15 +24,15 @@ for stage=1:S
    % ex: in stage 1 loop is repeated 4 times , in stage 2 loop is repeated 2 times and so on 
    while( n<=2^(stage-1)-1 && q<=N)
        e=exp((-1i)*2*pi*n/(2^stage));      % Twiddle factor calculation
-       G=x_new(p)+e*x_new(q);              % G and H are calculated     
+       G=x_new(p)+e*x_new(q);              % G and H are calculated , which are the output of the current stage   
        H=x_new(p)-e*x_new(q);
        x_new(p)=G;                         % G and H are used as input for the next stage 
        x_new(q)=H;
-       p=p+1;                              % Incrementing p,q & n for the same iteration of same stage
+       p=p+1;                              % Incrementing p,q & n for the next iteration of same stage
        q=q+1;     
        n=n+1;
        if(rem(q,2^stage)==1)               % Once all the computations of the iteration are completed
-          p=p+2^(stage-1);                 % Incrementing p,q and resetting n for the next iteration of same stage
+          p=p+2^(stage-1);                 % Incrementing p,q and resetting n for the next butterfly structure 
           q=q+2^(stage-1);
           n=0;
        end
